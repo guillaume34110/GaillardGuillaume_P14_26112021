@@ -1,0 +1,84 @@
+main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vh 0;
+    min-height: 100vh;
+    background-color:rgba(0, 68, 255, 0.034);
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+   
+    border-radius: 10px;
+}
+h3 , p ,h1, h2{
+    margin: 0;
+}
+h2{
+    margin-bottom: 2vh;
+}
+h3{
+    align-self: center;
+}
+input {
+    height:21px;
+}
+.btn , .department{
+    align-self: center;
+}
+.btn{
+    margin-top:2vh;
+    padding: 10px 30px;
+    background-color :rgb(74, 74, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    color : white ;
+    border : none ;
+}
+.btn:hover{
+    background-color :rgb(55, 55, 255);
+}
+.adress{
+    margin : 2vh 0;
+    padding : 10px  30px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+    border : 1px solid black;
+    border-radius: 5px;
+}
+ .department-label{
+    position: relative;
+    left : -45px ;
+    margin-bottom: 2px;
+}
+.list-page{
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    background-color :rgba(182, 204, 138, 0.534) ;
+    border : solid 1px transparent ;
+}
+.list-page:hover{
+    border : solid 1px black ;
+}
+.react-date-picker__wrapper{
+    background-color :white;
+}
+.input-error{
+    background-color :rgb(255, 157, 157);
+}
+.hidden{
+    opacity: 0;
+}
+.error{
+    color: rgb(255, 82, 82) ;
+    font-size: small;
+    line-height:80%;
+}
