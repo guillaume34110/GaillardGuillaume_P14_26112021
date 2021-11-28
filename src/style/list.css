@@ -1,4 +1,4 @@
-main{
+.list-main{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -8,6 +8,7 @@ main{
     min-height: 100vh;
     background-color:rgba(0, 68, 255, 0.034);
 }
+
 .home-page{
     cursor: pointer;
     border-radius: 5px;
@@ -17,4 +18,10 @@ main{
 }
 .home-page:hover{
     border : solid 1px black ;
+}
+.research-contenair{
+    position: relative;
+    top:-40px;
+    left:20px;
+    z-index: 12000;
 }

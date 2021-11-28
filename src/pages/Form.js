@@ -1,20 +1,26 @@
-import React, { useRef, useState } from 'react'
+import React, {  useRef, useState } from 'react'
 import DatePicker from 'react-date-picker';
 import { useNavigate } from "react-router-dom"
 import '../style/form.css'
+import Dropdown from 'gg-dropdown-menu/dist/index.js'
+import 'gg-dropdown-menu/dist-unmignified/dropdown.css'
+import { newArray, states } from '../data/states';
+import { department } from '../data/department';
 
 export default function Form() {
-    const [dateValue, onChange] = useState(new Date());
+    const [dateValue, onChange] = useState();
+    const [startDateValue, onStartChange] = useState();
     const navigate = useNavigate();
-
+    const array = newArray()
+    const [currentSelection, setCurrentSelection] = useState(array[0])
+    const [deptSelect, setDeptSelect] = useState(department[0])
     /*formRefs*/
     const fnRef = useRef()
     const lnRef = useRef()
     const streetRef = useRef()
     const cityRef = useRef()
-    const stateRef = useRef()
     const zipRef = useRef()
-    const deptRef = useRef()
+
 
     /*errorformRefs*/
     const erFnRef = useRef()
@@ -22,18 +28,24 @@ export default function Form() {
     const erStreetRef = useRef()
     const erCityRef = useRef()
     const erDateRef = useRef()
+    const erStartDateRef = useRef()
     const erZipRef = useRef()
 
+
+    /* useEffect(() => {
+         
+     }, [currentSelection])*/
     const redirect = () => {
-        navigate('/login')
+        navigate('/list')
     }
     const submit = (e) => {
         e.preventDefault()
-        const dateRef = document.querySelector('.react-date-picker__wrapper')
+        const dateRef = document.querySelectorAll('.react-date-picker__wrapper')
         let regexAlphabet = /^[a-zA-Z-\s]{2,30}$/
-        let regexNumber = /^[0-9]{4}$/
+        let regexNumber = /^[0-9]{3,}$/
         let regexStreet = /^[a-zA-Z0-9-\s]{3,30}$/
         let dateTest = dateRange(dateValue)
+        let startDateTest = dateRange(startDateValue)
         let regexToken = 0
         if (regexAlphabet.test(fnRef.current.value)) {
             regexToken++
@@ -55,12 +67,21 @@ export default function Form() {
         }
         if (dateTest) {
             regexToken++
-            dateRef.classList.remove('input-error')
+            dateRef[0].classList.remove('input-error')
             erDateRef.current.classList.add('hidden')
         }
         else {
-            dateRef.classList.add('input-error')
+            dateRef[0].classList.add('input-error')
             erDateRef.current.classList.remove('hidden')
+        }
+        if (startDateTest) {
+            regexToken++
+            dateRef[1].classList.remove('input-error')
+            erStartDateRef.current.classList.add('hidden')
+        }
+        else {
+            dateRef[1].classList.add('input-error')
+            erStartDateRef.current.classList.remove('hidden')
         }
         if (regexStreet.test(streetRef.current.value)) {
             regexToken++
@@ -91,21 +112,29 @@ export default function Form() {
         }
 
         if (regexToken === 6) { //si toutes les entrées sont bonnes
-          let oldDatas = window.localStorage.getItem('users') //recuperation des data du stockage local
-            if (oldDatas) JSON.parse(oldDatas)
-            else oldDatas = [] 
-             const newDatas = {//creation des nouvelles data
+            let oldDatas = window.localStorage.getItem('users') //recuperation des data du stockage local
+            if (oldDatas) oldDatas = JSON.parse(oldDatas)
+            else oldDatas = []
+            console.log(oldDatas)
+            /*generate state abreviation*/
+            let stateAbv = "error"
+            states.forEach(state => {
+                if (state.name === currentSelection) stateAbv = state.abbreviation
+            })
+
+            const newDatas = {//creation des nouvelles data
                 firstName: fnRef.current.value,
                 lastName: lnRef.current.value,
-                birthDate: dateValue,
+                birthDate: withoutTime(dateValue),
                 street: streetRef.current.value,
-                state: stateRef.current.value,
-                Zip: zipRef.current.value,
-                department: deptRef.current.value,
-                StartDate: new Date(),
-                id :oldDatas.length
+                state: stateAbv,
+                zip: zipRef.current.value,
+                city: cityRef.current.value,
+                department: deptSelect,
+                startDate: withoutTime(startDateValue),
+                id: oldDatas.length
             }
-            
+
             oldDatas.push(newDatas)
             window.localStorage.setItem('users', JSON.stringify(oldDatas))
             /*remise a 0 */
@@ -113,9 +142,9 @@ export default function Form() {
             lnRef.current.value = ""
             streetRef.current.value = ""
             cityRef.current.value = ""
-            stateRef.current.value = ""
+            setDeptSelect(department[0])
             zipRef.current.value = ""
-            deptRef.current.value = ""
+            setCurrentSelection(array[0])
             onChange(new Date())
         }
     }
@@ -126,39 +155,51 @@ export default function Form() {
         if (testedDate < currentDate && testedDate > olderDate) return true
         else return false
     }
-
+    const withoutTime = (dateTime) => { //clean date 
+        var d = new Date(dateTime);
+        var date = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+        return date;
+    }
+    const setDate = () => {
+        onChange(new Date())
+        onStartChange(new Date()) 
+    }
     return (
-        <main >
+        <main className="form-main">
             <h1>HRnet</h1>
             <div className="list-page" onClick={redirect}>View Current Employees</div>
             <form>
                 <h2>Create Employee</h2>
                 <label htmlFor="firstname" >First Name:</label>
-                <input ref={fnRef} type="text" id="firstname" name="firstname" size="20" />
-                <p ref={erFnRef} className="hidden error" >enter two letters or more</p>
+                <input ref={fnRef} data-testid = "fn-test" type="text" id="firstname" name="firstname" size="20" />
+                <p ref={erFnRef} data-testid = "fn-error" className="hidden error" >enter two letters or more</p>
                 <label htmlFor="lastname">Last Name:</label>
-                <input ref={lnRef} type="text" id="lastname" name="lastname" size="20" />
-                <p ref={erLnRef} className="hidden error" >enter two letters or more</p>
+                <input data-testid = "ln-test" ref={lnRef} type="text" id="lastname" name="lastname" size="20" />
+                <p data-testid = "ln-error" ref={erLnRef} className="hidden error" >enter two letters or more</p>
                 <p>Date of Birth</p>
-                <DatePicker onChange={onChange} value={dateValue} />
-                <p ref={erDateRef} className="hidden error" >enter a valid birth date</p>
+                <DatePicker  onChange={onChange} value={dateValue} />
+                <p data-testid = "birth-error" ref={erDateRef} className="hidden error" >enter a valid birth date</p>
+                <p>Start Date</p>
+                <DatePicker onChange={onStartChange} value={startDateValue} />
+                <p data-testid = "start-error" ref={erStartDateRef} className="hidden error" >enter a valid start date</p>
                 <div className="adress">
                     <h3>Address</h3>
                     <label htmlFor="street">Street:</label>
-                    <input ref={streetRef} type="text" id="street" name="street" size="20" />
-                    <p ref={erStreetRef} className="hidden error" >enter two letters and number or more</p>
+                    <input ref={streetRef} data-testid = "street-test" type="text" id="street" name="street" size="20" />
+                    <p ref={erStreetRef} className="hidden error" data-testid = "street-error" >enter two letters and number or more</p>
                     <label htmlFor="city">City:</label>
-                    <input ref={cityRef} type="text" id="city" name="city" size="20" />
-                    <p ref={erCityRef} className="hidden error" >enter two letters or more</p>
-                    <label htmlFor="state">State:</label>
-                    <input ref={stateRef} type="text" id="state" name="state" size="20" />
+                    <input data-testid = "city-test" ref={cityRef} type="text" id="city" name="city" size="20" />
+                    <p data-testid = "city-error" ref={erCityRef} className="hidden error" >enter two letters or more</p>
+                    <p>State:</p>
+                    <Dropdown array={array} currentSelection={currentSelection} setCurrentSelection={setCurrentSelection} />
                     <label htmlFor="zip">Zip:</label>
-                    <input ref={zipRef} type="text" id="zip" name="zip" size="20" />
-                    <p ref={erZipRef} className="hidden error" >enter three number or more</p>
+                    <inpu data-testid = "zip-test"t ref={zipRef} type="text" id="zip" name="zip" size="20" />
+                    <p data-testid = "zip-error" ref={erZipRef} className="hidden error" >enter three number or more</p>
                 </div>
-                <label className="department department-label" htmlFor="department">department:</label>
-                <input ref={deptRef} className="department " type="text" id="department" name="department" size="20" />
+                <p className="department department-label" >department:</p>
+                <Dropdown array={department} currentSelection={deptSelect} setCurrentSelection={setDeptSelect} />
                 <button className="btn" onClick={submit}>Save</button>
+                <div data-testid = "test-click" onClick = {setDate} className="test-click">test click</div>
             </form>
         </main>
     )
