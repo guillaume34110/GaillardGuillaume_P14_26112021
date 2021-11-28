@@ -3,6 +3,7 @@ import{
   BrowserRouter,
 Routes,
 Route,
+HashRouter,
 } from "react-router-dom";
 import Form from './pages/Form';
 import List from './pages/List';

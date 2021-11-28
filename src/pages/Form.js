@@ -8,6 +8,7 @@ import { newArray, states } from '../data/states';
 import { department } from '../data/department';
 
 export default function Form( {stateDatas,setStateDatas}) {
+
     const [dateValue, onChange] = useState();
     const [startDateValue, onStartChange] = useState();
     const navigate = useNavigate();
@@ -21,7 +22,6 @@ export default function Form( {stateDatas,setStateDatas}) {
     const cityRef = useRef()
     const zipRef = useRef()
 
-
     /*errorformRefs*/
     const erFnRef = useRef()
     const erLnRef = useRef()
@@ -31,10 +31,6 @@ export default function Form( {stateDatas,setStateDatas}) {
     const erStartDateRef = useRef()
     const erZipRef = useRef()
 
-
-    /* useEffect(() => {
-         
-     }, [currentSelection])*/
     const redirect = () => {
         navigate('/list')
     }
@@ -194,7 +190,7 @@ export default function Form( {stateDatas,setStateDatas}) {
                     <p>State:</p>
                     <Dropdown array={array} currentSelection={currentSelection} setCurrentSelection={setCurrentSelection} />
                     <label htmlFor="zip">Zip:</label>
-                    <inpu data-testid = "zip-test"t ref={zipRef} type="text" id="zip" name="zip" size="20" />
+                    <input data-testid = "zip-test" ref={zipRef} type="text" id="zip" name="zip" size="20" />
                     <p data-testid = "zip-error" ref={erZipRef} className="hidden error" >enter three number or more</p>
                 </div>
                 <p className="department department-label" >department:</p>
