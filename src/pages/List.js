@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router';
 import { columns } from '../data/columns'
 import '../style/list.css'
 
-export default function List() {
+export default function List({stateDatas,setStateDatas}) {
     const navigate = useNavigate();
     const [pending, setPending] = useState(true);
-    const [rows, setRows] = useState([])
+    const [rows, setRows] = useState(stateDatas)
     const searchRef = useRef()
 
     useEffect(() => {

@@ -1,10 +1,4 @@
-import { render, screen,getByLabelText,getByText,getByTestId,queryByTestId,
-  // Tip: all queries are also exposed on an object
-  // called "queries" which you could import here as well
-  waitFor,
-  fireEvent,
-  cleanup, 
-} from '@testing-library/react';
+import { render, screen,fireEvent,} from '@testing-library/react';
 // adds special assertions like toHaveTextContent
 import '@testing-library/jest-dom'
 import {Switch } from './App';
@@ -19,9 +13,8 @@ test( 'render form' , () => { // https://newbedev.com/can-t-get-memoryrouter-to-
   </MemoryRouter>,
    root
   )
-  expect(app.getByText('HRnet')).toBeInTheDocument();
+  expect(screen.getByText('HRnet')).toBeInTheDocument();
 })
-
 test( 'submit empty form ' , async () => {
   const root = document.createElement('div');
   document.body.appendChild(root);

@@ -7,7 +7,7 @@ import 'gg-dropdown-menu/dist-unmignified/dropdown.css'
 import { newArray, states } from '../data/states';
 import { department } from '../data/department';
 
-export default function Form() {
+export default function Form( {stateDatas,setStateDatas}) {
     const [dateValue, onChange] = useState();
     const [startDateValue, onStartChange] = useState();
     const navigate = useNavigate();
@@ -137,6 +137,7 @@ export default function Form() {
 
             oldDatas.push(newDatas)
             window.localStorage.setItem('users', JSON.stringify(oldDatas))
+            setStateDatas(newDatas)
             /*remise a 0 */
             fnRef.current.value = ""
             lnRef.current.value = ""
