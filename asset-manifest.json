@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/GaillardGuillaume_P14_26112021/static/css/main.fbf7ee50.chunk.css",
+    "main.js": "/GaillardGuillaume_P14_26112021/static/js/main.2aa4a870.chunk.js",
+    "main.js.map": "/GaillardGuillaume_P14_26112021/static/js/main.2aa4a870.chunk.js.map",
+    "runtime-main.js": "/GaillardGuillaume_P14_26112021/static/js/runtime-main.a5289d60.js",
+    "runtime-main.js.map": "/GaillardGuillaume_P14_26112021/static/js/runtime-main.a5289d60.js.map",
+    "static/css/2.db71f189.chunk.css": "/GaillardGuillaume_P14_26112021/static/css/2.db71f189.chunk.css",
+    "static/js/2.238d2413.chunk.js": "/GaillardGuillaume_P14_26112021/static/js/2.238d2413.chunk.js",
+    "static/js/2.238d2413.chunk.js.map": "/GaillardGuillaume_P14_26112021/static/js/2.238d2413.chunk.js.map",
+    "static/js/3.c083aab7.chunk.js": "/GaillardGuillaume_P14_26112021/static/js/3.c083aab7.chunk.js",
+    "static/js/3.c083aab7.chunk.js.map": "/GaillardGuillaume_P14_26112021/static/js/3.c083aab7.chunk.js.map",
+    "index.html": "/GaillardGuillaume_P14_26112021/index.html",
+    "static/css/2.db71f189.chunk.css.map": "/GaillardGuillaume_P14_26112021/static/css/2.db71f189.chunk.css.map",
+    "static/css/main.fbf7ee50.chunk.css.map": "/GaillardGuillaume_P14_26112021/static/css/main.fbf7ee50.chunk.css.map",
+    "static/js/2.238d2413.chunk.js.LICENSE.txt": "/GaillardGuillaume_P14_26112021/static/js/2.238d2413.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a5289d60.js",
+    "static/css/2.db71f189.chunk.css",
+    "static/js/2.238d2413.chunk.js",
+    "static/css/main.fbf7ee50.chunk.css",
+    "static/js/main.2aa4a870.chunk.js"
+  ]
+}
